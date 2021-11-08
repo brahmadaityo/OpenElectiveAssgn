@@ -1,0 +1,124 @@
+<nav class="bg-dark navbar-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mt-2">
+                <a class="navbar-brand" href="/admin_dashboard"><h5 class="text-white">Hello Admin, <br>
+                        <strong><%= name %></strong></h5></a>
+            </div>
+            <div class="col-md-4 mt-2 text-center">
+                <form action="/admin/student" method="POST" id="Form" class="form-inline"
+                ></form>
+                <input form="Form" name="student_id" class="form-control " type="text" placeholder="Enter Student ID">
+                <button form="Form" class="btn btn-primary mt-1" type="submit">Search</button>
+            </div>
+            <div class="col-md-4 mt-2 mb-2 text-center">
+                <a href="/admin/admin_logout" class="btn btn-info ">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<% include ./partials/messages %>
+<% if (user.filled) { %>
+    <% if (user.alloted) { %>
+        <div class="mt-5 card text-white bg-info mb-3 col-md-4 text-center container-fluid">
+            <div class="card-header">Alloted Subject Is : <strong><%= user.alloted %></strong></div>
+        </div>
+    <% } %>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Student ID</th>
+                <th scope="col">Password</th>
+                <th scope="col">Name</th>
+                <th scope="col">CGPI</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Choice Filled</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-success">
+                <th scope="row"><%= user.student_id %></th>
+                <td><%= user.password %></td>
+                <td><%= user.name %></td>
+                <td><%= user.cgpi %></td>
+                <td><%= user.branch.toUpperCase() %></td>
+                <% if (user.filled) { %>
+                    <td>Yes</td>
+                <% } else { %>
+                    <td>No</td>
+                <% } %>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <% if (choice !== null) { %>
+        <div class="mt-5 card text-white bg-success mb-3 col-md-4 text-center container-fluid">
+            <div class="card-header"><strong>The Choices Are: </strong></div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col" width="10%" class="text-center">Branch</th>
+                    <% var colWidth = 90 / choice.choices.length %>
+                    <% for (var i = 1; i <= choice.choices.length; i++) { %>
+                        <th scope="col" width="<%= colWidth %>%" class="text-center">Choice <%= i %></th>
+                    <% } %>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-info text-center">
+                    <th scope="row"><%= user.branch.toUpperCase() %></th>
+                    <% for (var j = 1; j <= choice.subject_name.length; j++) { %>
+                        <td scope="col" width="<%= colWidth %>%">
+                            <% var index = parseInt(choice.choices[j - 1]); %>
+                            <%= choice.subject_name[index - 1].toUpperCase() %>
+                        </td>
+                    <% } %>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <form action="/admin/choice_unlock" method="POST" id="form" class="form-inline my-2 my-lg-0"
+              onsubmit="return confirm('Are you sure?')"></form>
+        <input form="form" type="hidden" name="student_id" value="<%= user.student_id %>" class="form-control mr-sm-2"
+               type="text">
+        <div class="text-center">
+            <button form="form" class="btn btn-info my-2 my-sm-0" type="submit">Unlock Choice</button>
+        </div>
+    <% } %>
+<% } else { %>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Student ID</th>
+                <th scope="col">Password</th>
+                <th scope="col">Name</th>
+                <th scope="col">CGPI</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Choice Filled</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-success">
+                <th scope="row"><%= user.student_id %></th>
+                <td><%= user.password %></td>
+                <td><%= user.name %></td>
+                <td><%= user.cgpi %></td>
+                <td><%= user.branch.toUpperCase() %></td>
+                <% if (user.filled) { %>
+                    <td>Yes</td>
+                <% } else { %>
+                    <td>No</td>
+                <% } %>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<% } %>
+
+
+
+

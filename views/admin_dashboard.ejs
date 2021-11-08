@@ -1,0 +1,57 @@
+<nav class="bg-dark navbar-dark">
+    <div class="card card-header text-center">
+        <div class="text-center">
+            <a href="/"><img src="/images/logo.png" alt="Error" width="8%"></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mt-2">
+                <a class="navbar-brand" href="/admin_dashboard"><h5 class="text-white">Hello Admin, <br>
+                        <strong><%= name %></strong></h5></a>
+            </div>
+            <div class="col-md-4 mt-2 text-center">
+                <form action="/admin/student" method="POST" id="Form" class="form-inline"
+                ></form>
+                <input form="Form" name="student_id" class="form-control" type="text" placeholder="Enter Student ID">
+                <button form="Form" class="btn btn-primary mt-1" type="submit">Search</button>
+            </div>
+            <div class="col-md-4 mt-2 mb-2 text-center">
+                <a href="/admin/admin_logout" class="btn btn-info ">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<% include ./partials/messages %>
+<div class="col-md-6 m-auto">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col mt-5">
+                <i class="fas fa-play fa-4x">
+                    <a onclick="return confirm('Are you sure?')" href="/admin/allotment"
+                       class="btn btn-success mt-3 text-white">Start Allotment</a>
+                </i>
+            </div>
+            <div class="col mt-5">
+                <i class="fas fa-tasks fa-4x">
+                    <a href="/admin/get_list" class="btn btn-warning mt-3 text-white">Get Lists Of Allotments</a>
+                </i>
+            </div>
+            <div class="col mt-5">
+                <i class="fas fa-unlock fa-4x">
+                    <a onclick="return confirm('Are you sure?')" href="/admin/unlock_all"
+                       class="btn btn-dark mt-3 text-white">Unlock Choices For All Students</a>
+                </i>
+            </div>
+            <div class="col mt-5">
+                <i class="fas fa-book fa-4x">
+                    <a href="/admin/subject" class="btn btn-primary mt-3 text-white">Manage Subjects</a>
+                </i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

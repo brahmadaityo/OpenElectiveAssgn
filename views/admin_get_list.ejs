@@ -1,0 +1,65 @@
+<nav class="bg-dark navbar-dark">
+    <div class="card card-header text-center">
+        <div class="text-center">
+            <a href="/"><img src="/images/logo.png" alt="Error" width="8%"></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mt-2">
+                <a class="navbar-brand" href="/admin_dashboard"><h5 class="text-white">Hello Admin, <br>
+                        <strong><%= name %></strong></h5></a>
+            </div>
+            <div class="col-md-4 mt-2 text-center">
+                <form action="/admin/student" method="POST" id="Form" class="form-inline"
+                ></form>
+                <input form="Form" name="student_id" class="form-control" type="text" placeholder="Enter Student ID">
+                <button form="Form" class="btn btn-primary mt-1" type="submit">Search</button>
+            </div>
+            <div class="col-md-4 mt-2 mb-2 text-center">
+                <a href="/admin/admin_logout" class="btn btn-info ">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<% include ./partials/messages %>
+<div class="table-responsive mt-3">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col" width="25%" class="text-center">Branch</th>
+            <th scope="col" width="32%" class="text-center">Subject Name</th>
+            <th scope="col" width="25%" class="text-center">Subject Code</th>
+            <th scope="col" width="13%" class="text-center">Download List</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% var allSubjects = ['cse', 'ece', 'me', 'ce', 'it', 'ee']; %>
+        <% var trade, obj; %>
+        <% for (var i = 0; i < allSubjects.length; i++) { %>
+            <% trade = allSubjects[i]; %>
+            <% for (var j = 0; j < subject.length; j++) { %>
+                <% obj = subject[j]; %>
+                <% if (trade === obj.branch) { %>
+                    <tr class="table-info text-center">
+                        <th scope="row"><%= trade.toUpperCase() %></th>
+                        <td><%= obj.subject_name %></td>
+                        <td><%= obj.subject_code.toUpperCase() %></td>
+                        <td>
+                            <form action="/admin/get_list" method="POST" id="<%= obj.subject_code %>"
+                                  class="form-inline"></form>
+                            <input form="<%= obj.subject_code %>" type="hidden" name="subject_name"
+                                   value="<%= obj.subject_name %>" class="form-control mr-sm-2"
+                            >
+                            <div class="text-center">
+                                <button form="<%= obj.subject_code %>" class="btn btn-success" type="submit"><i
+                                            class="fas fa-download"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            <% } %>
+        <% } %>
+        </tbody>
+    </table>
+</div>
